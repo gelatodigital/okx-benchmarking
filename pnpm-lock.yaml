@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@gelatonetwork/smartwallet':
-        specifier: 0.0.9
-        version: 0.0.9(typescript@5.8.3)(viem@2.29.3(typescript@5.8.3)(zod@3.24.4))
+        specifier: 0.0.10
+        version: 0.0.10(typescript@5.8.3)(viem@2.29.3(typescript@5.8.3)(zod@3.24.4))
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.56.3(react@19.1.0))
@@ -778,8 +778,8 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@gelatonetwork/smartwallet@0.0.9':
-    resolution: {integrity: sha512-yMBRLAVtkDv/Zo7LCcEiHcQYna3WwMvNiwAW3OmLBsjgPRPa1QZ3s/RdXes9TvjVztonAsrgJslAUBfTFR5fWg==}
+  '@gelatonetwork/smartwallet@0.0.10':
+    resolution: {integrity: sha512-bSyoGHWoPtt3jk+4PwC+CiCPVF4aER4dMa/FO6H6Xmz6krVZd35avSCNxfC9vUcDevQ0um+cyAglMId75jnUPw==}
     peerDependencies:
       typescript: ^5.3
       viem: ~2.29
@@ -3674,7 +3674,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@gelatonetwork/smartwallet@0.0.9(typescript@5.8.3)(viem@2.29.3(typescript@5.8.3)(zod@3.24.4))':
+  '@gelatonetwork/smartwallet@0.0.10(typescript@5.8.3)(viem@2.29.3(typescript@5.8.3)(zod@3.24.4))':
     dependencies:
       isomorphic-ws: 5.0.0(ws@8.18.2)
       viem: 2.29.3(typescript@5.8.3)(zod@3.24.4)

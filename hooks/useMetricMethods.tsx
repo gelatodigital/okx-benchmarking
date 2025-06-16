@@ -14,7 +14,7 @@ import {
   erc20,
   sponsored,
 } from "@gelatonetwork/smartwallet";
-import { gelato } from "@gelatonetwork/smartwallet/accounts";
+import { gelato, okx } from "@gelatonetwork/smartwallet/accounts";
 import retry from "async-retry";
 
 // Create a public client to be used by all mutations
@@ -290,7 +290,7 @@ export const useMetricMethods = () => {
         }
         const privateKey = process.env.NEXT_PUBLIC_DEV_WALLET_2 as Hex;
         const signer = privateKeyToAccount(privateKey);
-        const account = await gelato({
+        const account = await okx({
           owner: signer,
           client: publicClient,
         });
@@ -397,7 +397,7 @@ export const useMetricMethods = () => {
         }
         const privateKey = process.env.NEXT_PUBLIC_DEV_WALLET_2 as Hex;
         const signer = privateKeyToAccount(privateKey);
-        const account = await gelato({
+        const account = await okx({
           owner: signer,
           client: publicClient,
         });
