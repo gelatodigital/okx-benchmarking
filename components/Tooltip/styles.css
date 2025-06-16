@@ -1,0 +1,76 @@
+.tooltip-content {
+  background-color: #333;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  max-width: 300px;
+  z-index: 1000;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-content p {
+  margin: 0;
+}
+
+[data-side="top"] .tooltip-content {
+  animation-name: slideDownAndFade;
+}
+
+[data-side="bottom"] .tooltip-content {
+  animation-name: slideUpAndFade;
+}
+
+[data-side="left"] .tooltip-content {
+  animation-name: slideRightAndFade;
+}
+
+[data-side="right"] .tooltip-content {
+  animation-name: slideLeftAndFade;
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+} 
