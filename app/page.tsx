@@ -11,7 +11,6 @@ export default function OKX7702() {
   const [activeTab, setActiveTab] = useState("erc20");
   const [startedToRun, setStartedToRun] = useState(false);
   const [isBenchmarkRunning, setIsBenchmarkRunning] = useState(false);
-  const transactionRef = useRef<HTMLDivElement>(null);
 
   // Transaction metrics state
   const [erc20TxMetrics, setErc20TxMetrics] = useState<any>(null);
@@ -23,8 +22,6 @@ export default function OKX7702() {
   const {
     useGelatoMutation: gelatoMutation,
     useGelatoERC20Mutation: gelatoERC20Mutation,
-    useOKXGelatoERC20Mutation: okxGelatoERC20Mutation,
-    useOKXGelatoMutation: okxGelatoMutation,
     useOKXSponsoredMutation: okxSponsoredMutation,
     useOKXERC20Mutation: okxERC20Mutation,
   } = useMetricMethods();
@@ -38,29 +35,24 @@ export default function OKX7702() {
     try {
       if (activeTab === "erc20") {
         setErc20TxLoading(true);
-        const [gelatoERC20, okxGelatoERC20, okxERC20] = await Promise.all([
+        const [gelatoERC20, okxERC20] = await Promise.all([
           gelatoERC20Mutation.mutateAsync(),
-          okxGelatoERC20Mutation.mutateAsync(),
           okxERC20Mutation.mutateAsync(),
         ]);
         setErc20TxMetrics({
           gelatoERC20,
-          okxGelatoERC20,
           okxERC20,
         });
         setErc20TxLoading(false);
       }
       if (activeTab === "sponsored") {
         setSponsoredTxLoading(true);
-        const [gelatoSponsored, okxGelatoSponsored, okxSponsored] =
-          await Promise.all([
-            gelatoMutation.mutateAsync(),
-            okxGelatoMutation.mutateAsync(),
-            okxSponsoredMutation.mutateAsync(),
-          ]);
+        const [gelatoSponsored, okxSponsored] = await Promise.all([
+          gelatoMutation.mutateAsync(),
+          okxSponsoredMutation.mutateAsync(),
+        ]);
         setSponsoredTxMetrics({
           gelatoSponsored,
-          okxGelatoSponsored,
           okxSponsored,
         });
         setSponsoredTxLoading(false);

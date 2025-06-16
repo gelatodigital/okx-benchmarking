@@ -21,12 +21,8 @@ export default function OKX7702ERC20({
   const [okxGelatoERC20Metrics, setOKXGelatoERC20Metrics] = useState<any[]>([]);
   const [okxERC20Metrics, setOKXERC20Metrics] = useState<any[]>([]);
   useEffect(() => {
-    if (
-      metrics?.gelatoERC20.type === "transaction" &&
-      metrics?.okxGelatoERC20.type === "transaction"
-    ) {
+    if (metrics?.gelatoERC20.type === "transaction") {
       setGelatoERC20Metrics(smartWalletGelatoMetrics());
-      setOKXGelatoERC20Metrics(okxGelatoERC20MetricsElements());
       setOKXERC20Metrics(okxERC20MetricsElements());
     }
   }, [metrics]);
@@ -59,10 +55,7 @@ export default function OKX7702ERC20({
 
   const smartWalletGelatoMetrics = () => {
     // Check if we have transaction metrics
-    if (
-      metrics?.gelatoERC20.type === "transaction" &&
-      metrics?.okxGelatoERC20.type === "transaction"
-    ) {
+    if (metrics?.gelatoERC20.type === "transaction") {
       const l1GasImprovement =
         ((Number(metrics?.okxERC20.l1Gas) -
           Number(metrics?.gelatoERC20.l1Gas)) /
@@ -121,71 +114,6 @@ export default function OKX7702ERC20({
     return [] as CardElement[];
   };
 
-  const okxGelatoERC20MetricsElements = () => {
-    // Check if we have transaction metrics
-    if (
-      metrics?.okxGelatoERC20.type === "transaction" &&
-      metrics?.gelatoERC20.type === "transaction"
-    ) {
-      const l1GasImprovement =
-        ((Number(metrics?.okxERC20.l1Gas) -
-          Number(metrics?.okxGelatoERC20.l1Gas)) /
-          Number(metrics?.okxERC20.l1Gas)) *
-        100 *
-        -1;
-
-      const l2GasImprovement =
-        ((Number(metrics?.okxERC20.l2Gas) -
-          Number(metrics?.okxGelatoERC20.l2Gas)) /
-          Number(metrics?.okxERC20.l2Gas)) *
-        100 *
-        -1;
-
-      const actualUserOpGasImprovement =
-        ((Number(metrics?.okxERC20.actualUserOpGas) -
-          Number(metrics?.okxGelatoERC20.actualUserOpGas)) /
-          Number(metrics?.okxERC20.actualUserOpGas)) *
-        100 *
-        -1;
-
-      const totalTxFeeImprovement =
-        ((Number(metrics?.okxERC20.totalTxFee) -
-          Number(metrics?.okxGelatoERC20.totalTxFee)) /
-          Number(metrics?.okxERC20.totalTxFee)) *
-        100 *
-        -1;
-
-      return [
-        {
-          value: metrics?.okxGelatoERC20.latency,
-        },
-
-        {
-          value: metrics?.okxGelatoERC20.l1Gas,
-          improvement: `${l1GasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoERC20.l2Gas,
-          improvement: `${l2GasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoERC20.actualUserOpGas,
-          improvement: `${actualUserOpGasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoERC20.totalTxFee,
-          improvement: `${totalTxFeeImprovement.toFixed(2)}% ETH`,
-        },
-        {
-          value: formatTxHash(metrics?.okxGelatoERC20.txHash),
-          url: `https://sepolia.basescan.org/tx/${metrics?.okxGelatoERC20.txHash}`,
-        },
-      ];
-    }
-
-    return [] as CardElement[];
-  };
-
   const okxERC20MetricsElements = () => {
     return [
       {
@@ -213,7 +141,7 @@ export default function OKX7702ERC20({
   return (
     <div>
       <div
-        className={`grid ${"grid-cols-[100px_200px_200px_200px]"} ${"md:grid-cols-[180px_1fr_1fr_1fr]"} gap-0 rounded-lg overflow-auto lg:overflow-hidden`}
+        className={`grid ${"grid-cols-[100px_200px_200px]"} ${"md:grid-cols-[180px_1fr_1fr]"} gap-0 rounded-lg overflow-auto lg:overflow-hidden`}
       >
         <MetricsLabels
           metrics={[
@@ -257,31 +185,6 @@ export default function OKX7702ERC20({
           usdcPrice={ethPrice}
           accountType="Gelato"
           paymentType="Sponsored"
-          paymasterType="Gelato"
-          standardType="7702"
-          tabs={true}
-        />
-
-        <Card
-          title="SmartWallet SDK + Gelato Relay"
-          description="Sponsored"
-          elements={okxGelatoERC20Metrics}
-          icons={[
-            <OKXIcon
-              className="w-10 h-10 rounded-full border-2 border-white"
-              key="okx"
-            />,
-            <GelatoIcon
-              className="w-10 h-10 rounded-full border-2 border-white"
-              key="gelato"
-            />,
-          ]}
-          loading={loading}
-          isNew
-          highlight
-          usdcPrice={ethPrice}
-          accountType="OKX"
-          paymentType="ERC20"
           paymasterType="Gelato"
           standardType="7702"
           tabs={true}

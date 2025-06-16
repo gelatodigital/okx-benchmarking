@@ -44,27 +44,17 @@ export default function OKX7702Sponsored({
   }, []);
 
   const [GelatoMetrics, setGelatoMetrics] = useState<any[]>([]);
-  const [okxGelatoSponsoredMetrics, setOKXGelatoSponsoredMetrics] = useState<
-    any[]
-  >([]);
   const [okxSponsoredMetrics, setOKXSponsoredMetrics] = useState<any[]>([]);
   useEffect(() => {
-    if (
-      metrics?.gelatoSponsored.type === "transaction" &&
-      metrics?.okxGelatoSponsored.type === "transaction"
-    ) {
+    if (metrics?.gelatoSponsored.type === "transaction") {
       setGelatoMetrics(smartWalletGelatoMetrics());
-      setOKXGelatoSponsoredMetrics(okxGelatoSponsoredMetricsElements());
       setOKXSponsoredMetrics(okxSponsoredMetricsElements());
     }
   }, [metrics]);
 
   const smartWalletGelatoMetrics = () => {
     // Check if we have transaction metrics
-    if (
-      metrics?.gelatoSponsored.type === "transaction" &&
-      metrics?.okxGelatoSponsored.type === "transaction"
-    ) {
+    if (metrics?.gelatoSponsored.type === "transaction") {
       const l1GasImprovement =
         ((Number(metrics?.okxSponsored.l1Gas) -
           Number(metrics?.gelatoSponsored.l1Gas)) /
@@ -122,67 +112,6 @@ export default function OKX7702Sponsored({
     return [];
   };
 
-  const okxGelatoSponsoredMetricsElements = () => {
-    // Check if we have transaction metrics
-    if (
-      metrics?.okxGelatoSponsored.type === "transaction" &&
-      metrics?.gelatoSponsored.type === "transaction"
-    ) {
-      const l1GasImprovement =
-        ((Number(metrics?.okxSponsored.l1Gas) -
-          Number(metrics?.okxGelatoSponsored.l1Gas)) /
-          Number(metrics?.okxSponsored.l1Gas)) *
-        100 *
-        -1;
-      const l2GasImprovement =
-        ((Number(metrics?.okxSponsored.l2Gas) -
-          Number(metrics?.okxGelatoSponsored.l2Gas)) /
-          Number(metrics?.okxSponsored.l2Gas)) *
-        100 *
-        -1;
-      const actualUserOpGasImprovement =
-        ((Number(metrics?.okxSponsored.actualUserOpGas) -
-          Number(metrics?.okxGelatoSponsored.actualUserOpGas)) /
-          Number(metrics?.okxSponsored.actualUserOpGas)) *
-        100 *
-        -1;
-      const totalTxFeeImprovement =
-        ((Number(metrics?.okxSponsored.totalTxFee) -
-          Number(metrics?.okxGelatoSponsored.totalTxFee)) /
-          Number(metrics?.okxSponsored.totalTxFee)) *
-        100 *
-        -1;
-      return [
-        {
-          value: metrics?.okxGelatoSponsored.latency,
-        },
-
-        {
-          value: metrics?.okxGelatoSponsored.l1Gas,
-          improvement: `${l1GasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoSponsored.l2Gas,
-          improvement: `${l2GasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoSponsored.actualUserOpGas,
-          improvement: `${actualUserOpGasImprovement.toFixed(2)}% Gas`,
-        },
-        {
-          value: metrics?.okxGelatoSponsored.totalTxFee,
-          improvement: `${totalTxFeeImprovement.toFixed(2)}% ETH`,
-        },
-        {
-          value: formatTxHash(metrics?.okxGelatoSponsored.txHash),
-          url: `https://sepolia.basescan.org/tx/${metrics?.okxGelatoSponsored.txHash}`,
-        },
-      ];
-    }
-
-    return [];
-  };
-
   const okxSponsoredMetricsElements = () => {
     return [
       {
@@ -211,8 +140,8 @@ export default function OKX7702Sponsored({
     <div>
       <div
         className={`grid 
-              grid-cols-[100px_220px_220px_220px]
-              md:grid-cols-[180px_1fr_1fr_1fr]
+              grid-cols-[100px_220px_220px]
+              md:grid-cols-[180px_1fr_1fr]
               rounded-lg overflow-auto lg:overflow-hidden`}
       >
         <MetricsLabels
@@ -256,30 +185,6 @@ export default function OKX7702Sponsored({
           highlight
           usdcPrice={ethPrice}
           accountType="Gelato"
-          paymentType="Sponsored"
-          paymasterType="Gelato"
-          standardType="7702"
-          tabs={true}
-        />
-        <Card
-          title="SmartWallet SDK + Gelato Relay"
-          description="Sponsored EIP-7702 (OKX) + Gelato"
-          elements={okxGelatoSponsoredMetrics}
-          icons={[
-            <OKXIcon
-              className="w-10 h-10 rounded-full border-2 border-white"
-              key="okx"
-            />,
-            <GelatoIcon
-              className="w-10 h-10 rounded-full border-2 border-white"
-              key="gelato"
-            />,
-          ]}
-          loading={loading}
-          usdcPrice={ethPrice}
-          isNew
-          highlight
-          accountType="OKX"
           paymentType="Sponsored"
           paymasterType="Gelato"
           standardType="7702"
